@@ -11,7 +11,7 @@ interface EventInterface{
     public function deleteEvent($id);
     public function searchEvent($event_name);
     public function filterEvents($key, $value);
-    public function getEventTypes();
-    public function searchByType($type);
+    public function getEventCategories();
+    public function searchByCategory($category);
     public function searchByDate($start_date, $end_date);
 }

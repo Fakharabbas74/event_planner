@@ -11,9 +11,8 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function signIn(Request $request){
         try{
-            Log::info('------------------------login - Start------------------------');
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|string|min:8',
@@ -21,7 +20,6 @@ class AuthController extends Controller
 
             $user = User::where('email',$request->email)->first();
             if($user){
-                // Check If Password Is Wrong
                 if(!Hash::check($request->password, $user->password) ){
                     return response()->json(['status' => False, 'response_code' => 401, 'message' => 'Password is incorrect', 'data' => 'null'],401);
                 }else{
@@ -41,10 +39,6 @@ class AuthController extends Controller
 
     public function signOut(){
         try {
-            //Delete All Tokens Of Logged In User
-            if(!auth('sanctum')->user()){
-                return response()->json(['status' => false, 'response_code' => 401, 'message' => 'You are not logged in', 'data' => null],200);
-            }
             Auth::logout();
             return response()->json(['status' => true, 'response_code' => 200, 'message' => 'logged out successfully'],200);
 

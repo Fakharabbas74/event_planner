@@ -18,7 +18,7 @@ class EventService{
         $this->eventInterface = $eventInterface;
     }
 
-    public function getEvents(){
+    public function getAllEvents(){
         try {
             $events = $this->eventInterface->getAllEvents();
             return response()->json([
@@ -41,8 +41,8 @@ class EventService{
         try {
             $request->validate([
                 'name' => 'required',
-                'description' => 'required',
-                'type' => 'required',
+                'detail' => 'required',
+                'category' => 'required',
                 'start_date' => 'required',
                 'end_date' => 'required',
             ]);
@@ -68,8 +68,8 @@ class EventService{
         try {
             $request->validate([
                 'name' => 'nullable',
-                'description' => 'nullable',
-                'type' => 'nullable',
+                'detail' => 'nullable',
+                'category' => 'nullable',
                 'start_date' => 'nullable',
                 'end_date' => 'nullable',
             ]);
@@ -160,7 +160,7 @@ class EventService{
     public function filterEvents(Request $request){
         try {
             $request->validate([
-                'key' => 'required|in:type,start_date,end_date',
+                'key' => 'required|in:category,start_date,end_date',
                 'value' => 'required'
             ]);
             $key = $request->key;
@@ -181,29 +181,29 @@ class EventService{
         }
     }
 
-    public function getEventTypes(){
+    public function getEventCategory(){
         try {
 
-            $types = $this->eventInterface->getEventTypes();
+            $categories = $this->eventInterface->getEventCategories();
 
             return response()->json([
                 'status' => true,
-                'types' => $types,
+                'categories' => $categories,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Error fetching event types: ' . $e->getMessage(),
+                'message' => 'Error fetching event categories: ' . $e->getMessage(),
             ], 500);
         }
     }
 
-    public function searchByType(Request $request){
+    public function searchByCategory(Request $request){
         $request->validate([
-            'type' => 'required|string'
+            'category' => 'required|string'
         ]);
 
-        $events = $this->eventInterface->searchByType($request->type);
+        $events = $this->eventInterface->searchByCategory($request->category);
 
         return response()->json([
             'status' => true,

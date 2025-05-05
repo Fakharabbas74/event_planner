@@ -16,24 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/sign-in', [AuthController::class, 'signIn'])->name('sign_in');
-Route::get('/get-all-events', [EventController::class, 'getAllEvents']);
-Route::post('/filter-events', [EventController::class, 'filterEvents']);
-Route::post('/search-events', [EventController::class, 'searchEvents']);
-Route::get('/get-event-types', [EventController::class, 'getEventTypes']);
-Route::post('/search-by-type', [EventController::class, 'searchByType']);
-Route::post('/search-by-date', [EventController::class, 'searchByDate']);
 
+// Protected Route For Admin Panel
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 
-    Route::get('/sign-out', [AuthController::class, 'logout'])->name('sign_out');
+    Route::get('/sign-out', [AuthController::class, 'signOut'])->name('sign_out');
 
     //Events
     Route::put('/edit-event/{id}', [EventController::class, 'updateEvent']);
     Route::delete('/delete-event/{id}', [EventController::class, 'deleteEvent']);
     Route::post('/create-event', [EventController::class, 'createEvent']);
 });
+
+// Public Routes For Website
+Route::get('/get-all-events', [EventController::class, 'getAllEvents']);
+Route::post('/filter-events', [EventController::class, 'filterEvents']);
+Route::post('/search-events', [EventController::class, 'searchEvents']);
+Route::get('/get-event-categories', [EventController::class, 'getEventCategories']);
+Route::post('/search-by-category', [EventController::class, 'searchByCategory']);
+Route::post('/search-by-date', [EventController::class, 'searchByDate']);

@@ -19,7 +19,7 @@ class EventRepository implements EventInterface{
     }
 
     public function createEvent($request){
-        return $this->event::create($request->only(['name', 'description', 'type','start_date', 'end_date']));
+        return $this->event::create($request->only(['name', 'detail', 'category','start_date', 'end_date']));
     }
 
     public function getEvent($id){
@@ -27,11 +27,11 @@ class EventRepository implements EventInterface{
     }
 
     public function updateEvent($request, $id){
-        return $this->event::where('id',$id)->update($request->only(['name', 'description', 'type','start_date', 'end_date']));
+        return $this->event::where('id',$id)->update($request->only(['name', 'detail', 'category','start_date', 'end_date']));
     }
 
     public function deleteEvent($id){
-        return $this->event::where('id',$id)->first();
+        return $this->event::where('id',$id)->delete();
     }
 
     public function searchEvent($name){
@@ -42,12 +42,12 @@ class EventRepository implements EventInterface{
         return $this->event::where($key, 'like', '%' . $value . '%')->get();
     }
 
-    public function getEventTypes(){
-        return $this->event::select('type')->distinct()->pluck('type');
+    public function getEventCategories(){
+        return $this->event::select('category')->distinct()->pluck('category');
     }
 
-    public function searchByType($type){
-        return $this->event::where('type', $type)->get();
+    public function searchByCategory($category){
+        return $this->event::where('category', $category)->get();
     }
 
     public function searchByDate($start_date, $end_date){
