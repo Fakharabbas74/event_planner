@@ -1,0 +1,142 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  /* background-color: #f4f9ff; */
+  color: #333;
+  background-color: #ddd;
+
+}
+
+/* Flex layout */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2f3ecf;
+  color: white;
+  padding: 16px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+/* Main area grows */
+.main-content {
+  flex: 1;
+}
+
+/* Content with side spacing */
+.content-wrapper {
+  padding: 40px 6%;
+  text-align: center;
+}
+
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #1c2b69;
+}
+
+.sub-heading {
+  font-size: 1rem;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+/* Grid */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  justify-content: center;
+}
+.event-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(112, 0, 255, 0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Header with icon */
+.event-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #5a00d4;
+  border-bottom: 1px solid #888484;
+  margin-bottom: 20px;
+}
+
+/* Section styles */
+.event-category,
+.event-description,
+.event-dates > div {
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.event-description {
+  color: #555;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Icon styles */
+.event-card i {
+  color: #6a00d4;
+  font-size: 1.1rem;
+}
+
+
+/* Footer */
+.footer {
+  background-color: #2f3ecf;
+  color: white;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Optional: Responsive tweak for smaller screens */
+@media (max-width: 992px) {
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+}
